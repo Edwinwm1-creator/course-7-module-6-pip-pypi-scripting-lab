@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from datetime import datetime
 import os
+import requests
 
 def generate_log(data):
     # STEP 1: Validate input
@@ -24,7 +25,17 @@ def generate_log(data):
     print(f"Log written to {filename}")
     return True
 
+def fetch_data():
+    # Fetch data from a public API as specified in Step 4
+    response = requests.get("https://typicode.com")
+    if response.status_code == 200:
+        return response.json()
+    return {}
+
 if __name__ == "__main__":
-    # Example execution block to test locally
+    # Local execution verification block
     sample_data = ["User logged in", "User updated profile", "Report exported"]
     generate_log(sample_data)
+    
+    post = fetch_data()
+    print("Fetched Post Title:", post.get("title", "No title found"))

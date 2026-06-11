@@ -28,10 +28,14 @@ def generate_log(data):
 
 def fetch_data():
     # Fetch data from a public API as specified in Step 4
-    response = requests.get("https://typicode.com")
-    if response.status_code == 200:
+    url = "https://jsonplaceholder.typicode.com/posts/1"
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
         return response.json()
-    return {}
+    except requests.RequestException as error:
+        print(f"Warning: Could not fetch data from API: {error}")
+        return {}
 
 
 if __name__ == "__main__":

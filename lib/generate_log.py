@@ -3,12 +3,12 @@ from datetime import datetime
 import os
 import requests
 
+
 def generate_log(data):
     # STEP 1: Validate input
     # Hint: Check if data is a list
     if not isinstance(data, list):
-        print("Error: Input data must be a list.")
-        return False
+        raise ValueError("Input data must be a list.")
 
     # STEP 2: Generate a filename with today's date (e.g., "log_20250408.txt")
     # Hint: Use datetime.now().strftime("%Y%m%d")
@@ -23,7 +23,8 @@ def generate_log(data):
 
     # STEP 4: Print a confirmation message with the filename
     print(f"Log written to {filename}")
-    return True
+    return filename
+
 
 def fetch_data():
     # Fetch data from a public API as specified in Step 4
@@ -32,10 +33,11 @@ def fetch_data():
         return response.json()
     return {}
 
+
 if __name__ == "__main__":
     # Local execution verification block
     sample_data = ["User logged in", "User updated profile", "Report exported"]
     generate_log(sample_data)
-    
+
     post = fetch_data()
     print("Fetched Post Title:", post.get("title", "No title found"))

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from datetime import datetime
 import os
-import requests
 
 
 def generate_log(data):
@@ -28,6 +27,12 @@ def generate_log(data):
 
 def fetch_data():
     # Fetch data from a public API as specified in Step 4
+    try:
+        import requests
+    except ImportError:
+        print("Warning: requests is not installed, skipping API fetch.")
+        return {}
+
     url = "https://jsonplaceholder.typicode.com/posts/1"
     try:
         response = requests.get(url, timeout=10)
